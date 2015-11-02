@@ -36,6 +36,9 @@ end_date = datetime.date( year = 2014, month = 1, day = 1 )
 groupid = "DAM_LMP_GRP"
 version = "1"
 
+#  If you prefer a XML version, change CSV to False
+CSV = True
+
 list = []
  
 if start_date <= end_date:
@@ -47,8 +50,12 @@ else:
 
 
 for d in list:
-    url = ('http://oasis.caiso.com/oasisapi/GroupZip?groupid='+groupid+'&startdatetime='+str(d.strftime("%Y%m%d"))+'T00:00-0000&version='+version)
+    if CSV == True:
+        url = ('http://oasis.caiso.com/oasisapi/GroupZip?groupid='+groupid+'&startdatetime='+str(d.strftime("%Y%m%d"))+'T00:00-0000&version='+version+'&resultformat=6')
+    else:
+        url = ('http://oasis.caiso.com/oasisapi/GroupZip?groupid='+groupid+'&startdatetime='+str(d.strftime("%Y%m%d"))+'T00:00-0000&version='+version)
     webbrowser.open_new(url)
+
 
 # Pause 30 seconds so you dont flood server.
 # Minimum of 5 seconds is required between requests.
